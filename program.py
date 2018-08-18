@@ -21,6 +21,7 @@ enter_to_progress = "Beliebige Taste zum fortfahren drücken..."
 please_wait = "Bitte warten..."
 nothing_found = "Es konnte keine .dbf Datei gefunden werden."
 done = "Fertig..."
+error_message = "Ein Fehler ist waehrend der Umwandlung aufgetreten.\nEs wird nun versucht die naechste Datei umzuwandeln."
 
 #   Clear Screen.
 clear = lambda: os.system('cls')
@@ -36,7 +37,7 @@ for dirpath, dirname, filenames in os.walk(input_path):
     for filename in filenames:
         if filename.endswith(".DBF"):
             print(f"\tUmwandeln von {filename} zu .csv") 
-            table = DBF(dirpath + filename, encoding="latin1")
+            table = DBF(dirpath + filename, encoding="latin1", ignore_missing_memofile=True)
             df = pd.DataFrame(iter(table)) 
             csv_file = filename[:-4] + ".csv" # remove last four characters to put .csv at the end.
             output_path_csv= os.path.join(output_path, csv_file)

@@ -4,6 +4,7 @@
 - Date:           17.08.2018
 - Description:    DBFConverterToCSV to convert .dbf file(s) in .csv.
 - Licence:        Open Source tool. Free 4 all!
+- Language:       German, but you can easy translate it to other languages.
 
 ## Known Issues
 
