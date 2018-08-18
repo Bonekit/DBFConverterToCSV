@@ -1,27 +1,50 @@
 #   Author:         Tobias Menzel
 #   Date:           17.08.2018
-#   Copyright:      2018 Tobias Menzel
-#   Description:    Migrationtool to migrate .dbf file in .csv
+#   Description:    DBFConverterToCSV to convert .dbf file(s) in .csv.
 
-import csv
-from dbfpy import dbf
+#   important modules for the DBFConverter.
+from dbfread import DBF
+import pandas as pd
 import os
+import csv
 import sys
 
-filename = sys.argv[1]
-if filename.endswith('.dbf'):
-    print ("Converting %s to csv" % filename)
-    csv_fn = filename[:-4]+ ".csv"
-    with open(csv_fn,'wb') as csvfile:
-        in_db = dbf.Dbf(filename)
-        out_csv = csv.writer(csvfile)
-        names = []
-        for field in in_db.header.fields:
-            names.append(field.name)
-        out_csv.writerow(names)
-        for rec in in_db:
-            out_csv.writerow(rec.fieldData)
-        in_db.close()
-        print("Done...")
-else:
-    print("Filename does not end with .dbf")
+#   Put all .dbf files in the input path, after converting all .csv files will be in the output path.
+input_path = "C:/Temp/Input/"
+output_path = "C:/Temp/Output/"
+
+#   Every string in the DBFConvert. Translation is much easier.
+#   Only one Text String left in the main area.
+welcome = "Moin Moin, willkommen im .dbf Converter Tool."
+welcome2 = "Dieses Tool arbeitet automatisch, bitte warten Sie einfach."
+enter_to_progress = "Beliebige Taste zum fortfahren drücken..."
+please_wait = "Bitte warten..."
+nothing_found = "Es konnte keine .dbf Datei gefunden werden."
+done = "Fertig..."
+
+#   Clear Screen.
+clear = lambda: os.system('cls')
+
+#   Main Area.
+clear() # Clear console screen.
+print(welcome)
+print(welcome2)
+input(enter_to_progress)
+clear() # Clear console screen.
+print(please_wait)
+for dirpath, dirname, filenames in os.walk(input_path):
+    for filename in filenames:
+        if filename.endswith(".DBF"):
+            print(f"\tUmwandeln von {filename} zu .csv") 
+            table = DBF(dirpath + filename, encoding="latin1")
+            df = pd.DataFrame(iter(table)) 
+            csv_file = filename[:-4] + ".csv" # remove last four characters to put .csv at the end.
+            output_path_csv= os.path.join(output_path, csv_file)
+            df.to_csv(output_path_csv, sep=';')
+        else:
+            clear()
+            print(nothing_found)
+            input(enter_to_progress)
+
+print(done)
+input(enter_to_progress)
