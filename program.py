@@ -1,54 +1,76 @@
-#   Author:         Tobias Menzel
-#   Date:           17.08.2018
-#   Description:    DBFConverterToCSV to convert .dbf file(s) in .csv.
+# Title:            DBFConverterToCSV
+# Description:      Converte .dbf files to .csv files.
+# Author:           Tobias Menzel
+# Date:             17.08.2018
+# Version:          0.1
+# Language:         Python 3.7
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-#   important modules for the DBFConverter.
-from dbfread import DBF
+# Important modules for the DBFConverter.
+import dbfread
+import subprocess as sub
 import pandas as pd
 import os
-import csv
-import sys
 
-#   Put all .dbf files in the input path, after converting all .csv files will be in the output path.
-input_path = "C:/Temp/Input/"
-output_path = "C:/Temp/Output/"
 
-#   Every string in the DBFConverter. Translation is much easier.
-#   Only one Text String left in the main area.
-welcome = "Moin Moin, willkommen im .dbf Converter Tool."
-welcome2 = "Dieses Tool arbeitet automatisch, bitte warten Sie einfach."
-enter_to_progress = "Beliebige Taste zum fortfahren drücken..."
-please_wait = "Bitte warten..."
-nothing_found = "Es konnte keine .dbf Datei gefunden werden."
-done = "Fertig..."
-error_message = "Ein Fehler ist waehrend der Umwandlung aufgetreten.\n"\
-                "Es wird nun versucht die naechste Datei umzuwandeln."
+# Define functions.
 
 
 def clear():
-    os.system('cls')
+    """Clear the console screen on windows"""
+    sub.call('cls', shell=True)
 
 
-#   Main Area.
-clear()  # Clear console screen.
-print(welcome)
-print(welcome2)
-input(enter_to_progress)
-clear()  # Clear console screen.
-print(please_wait)
-for dirpath, dirname, filenames in os.walk(input_path):
-    for filename in filenames:
-        if filename.endswith(".DBF"):
-            print(f"\tUmwandeln von {filename} zu .csv")
-            table = DBF(dirpath + filename, encoding="latin1", ignore_missing_memofile=True)
-            df = pd.DataFrame(iter(table))
-            csv_file = filename[:-4] + ".csv"  # remove last four characters to put .csv at the end.
-            output_path_csv = os.path.join(output_path, csv_file)
-            df.to_csv(output_path_csv, sep=';')
-        else:
-            clear()
-            print(nothing_found)
-            input(enter_to_progress)
+def main():
+    """Main function to convert all .dbf files into .csv files"""
+    # Declaration.
+    cnt_errors = 0
 
-print(done)
-input(enter_to_progress)
+    # Get the path where the script is. All .dbf files inside this path will be converted into .csv.
+    script_path = os.path.dirname(__file__)
+
+    # Clear the console screen.
+    clear()
+
+    # Script is starting to find all .dbf files.
+    print('Script is searching for .dbf files.')
+
+    # Search for .dbf files inside the script path.
+    for dirpath, dirname, filenames in os.walk(script_path):
+        for filename in filenames:
+            if filename.endswith(".dbf"):
+                print("Convert: {filename} to .csv".format(filename=filename))
+
+                # Combine both strings.
+                full_path = dirpath + filename
+
+                # Try to load the .dbf file.
+                try:
+                    table = dbfread.DBF(full_path, encoding="windows-1252", ignore_missing_memofile=False)
+                except dbfread.exceptions.DBFNotFound as dbf_exc:
+                    print("Error occurred: \n{file} \n{error}".format(file=filename, error=dbf_exc))
+                    cnt_errors += 1
+                    continue
+
+                # Load data from table into an DataFrame.
+                df = pd.DataFrame(iter(table))
+
+                # remove last four characters to put .csv at the end.
+                csv_file = filename[:-4] + ".csv"
+
+                # Join the script path.
+                output_path_csv = os.path.join(script_path, csv_file)
+
+                # Print the convert message into the console and write all data in a .csv file.
+                print("Convert: {filename} to .csv".format(filename=filename))
+                df.to_csv(output_path_csv, sep=';')
+
+    # Print out amount of not converted .dbf files.
+    print('Amount of not converted files: {}'.format(cnt_errors))
+
+
+# Application Start.
+
+
+if __name__ == '__main__':
+    main()
