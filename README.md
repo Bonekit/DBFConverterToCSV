@@ -1,12 +1,15 @@
-# DBFConverterToCSV
+---
+Author: Tobias Menzel
+Date: 17.08.2018
+Licence: 
+Language: Python 3.7
+---
 
-- Author:         Tobias Menzel
-- Date:           17.08.2018
-- Description:    DBFConverterToCSV to convert .dbf file(s) in .csv.
-- Licence:        Open Source tool. Free 4 all!
-- Language:       German, but you can easy translate it to other languages.
+# DBFConverterToCSV
+The DBFConverterToCSV convert all .dbf files to .csv files.  
+Not every .dbf file can be converted, but i´ll work on it.
+The script will loop over all .dbf files. Is there a not working .dbf file, 
+the script will automatically work with the next .dbf file.
 
 ## Known Issues
-
-1. I get an Memofile Exception from dbfread at some files.
-2. No Exception Handler.
+- Memofile Exception from dbfread at some files.
