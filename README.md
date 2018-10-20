@@ -1,7 +1,7 @@
 ---
-Author: Tobias Menzel
-Date: 17.08.2018
-Licence: 
+Author: Tobias Menzel  
+Date: 17.08.2018  
+Licence: GNU GENERAL PUBLIC LICENCE VERSION 3  
 Language: Python 3.7
 ---
 
