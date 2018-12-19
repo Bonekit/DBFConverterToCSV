@@ -14,6 +14,3 @@ Copy the script into the path where the DBF files are, then execute the script v
 
 # Build with
 - Python 3.7
-
-## Known Issues
-- Memofile Exception from dbfread on some files.
