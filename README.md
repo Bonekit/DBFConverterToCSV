@@ -6,16 +6,14 @@ Language: Python 3.7
 ---
 
 # DBFConverterToCSV
-The DBFConverterToCSV convert all .dbf files to .csv files.  
-Not every .dbf file can be converted, but i´ll work on it.
-The script will loop over all .dbf files. Is there a not working .dbf file, 
-the script will automatically work with the next .dbf file.
+The DBFConverterToCSV convert all DBF files to CSV files.  
+The script will loop over all DBF files, when a DBF file can´t be converted the script will jump to the next file.
 
 # How to use the script?
-Copy the script into the path where the .dbf files are. then execute the script via command-line.
+Copy the script into the path where the DBF files are, then execute the script via the command-line.
 
 # Build with
 - Python 3.7
 
 ## Known Issues
-- Memofile Exception from dbfread at some files.
+- Memofile Exception from dbfread on some files.
