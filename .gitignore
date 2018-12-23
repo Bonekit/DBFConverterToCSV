@@ -1,0 +1,8 @@
+# Ignore vscode
+.vscode/
+
+# Ignore pycharm
+.idea/
+
+# Ignore virtualenv 
+venv

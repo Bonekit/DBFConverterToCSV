@@ -12,5 +12,8 @@ The script will loop over all DBF files, when a DBF file can´t be converted the
 # How to use the script?
 Copy the script into the path where the DBF files are, then execute the script via the command-line.
 
+# Platform?
+Only for windows
+
 # Build with
 - Python 3.7
