@@ -1,3 +1,13 @@
-DBFConverterToCSV
-dbfread>=2.0.7
-pandas>=0.23.4
+astroid==2.1.0
+colorama==0.4.1
+dbfread==2.0.7
+isort==4.3.4
+lazy-object-proxy==1.3.1
+mccabe==0.6.1
+numpy==1.15.4
+pandas==0.23.4
+pylint==2.2.2
+python-dateutil==2.7.5
+pytz==2018.7
+six==1.12.0
+wrapt==1.10.11
