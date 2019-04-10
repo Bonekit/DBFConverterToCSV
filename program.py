@@ -41,7 +41,7 @@ def main():
                 print("Convert: {filename} to .csv".format(filename=filename))
 
                 # Combine both strings
-                full_path = dirpath + filename
+                full_path = dirpath + "\\" + filename
 
                 # Try to load the DBF file
                 try:
