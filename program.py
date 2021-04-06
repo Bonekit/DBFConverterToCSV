@@ -1,11 +1,3 @@
-# Title:            DBFConverterToCSV
-# Description:      Converte DBF files to CSV files
-# Author:           Tobias Menzel
-# Date:             17.08.2018
-# Version:          0.1
-# Language:         Python 3.7
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-
 # Import modules
 import dbfread
 import subprocess as sub
